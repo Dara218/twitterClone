@@ -1,7 +1,7 @@
 <x-layout>
 
     <div class="container d-flex align-items-center justify-content-center min-vh-100">
-        <form action="/login-check" class="center px-5 pb-5 pt-3 bg-black text-white rounded d-flex justify-content-center align-items-center flex-column gap-3 position-relative" method="POST" style="width: 650px; height: auto">
+        <form action="{{ route('checkUserEmail') }}" class="center px-5 pb-5 pt-3 bg-black text-white rounded d-flex justify-content-center align-items-center flex-column gap-3 position-relative" method="POST" style="width: 650px; height: auto">
 
             @csrf
 
