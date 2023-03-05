@@ -26,6 +26,7 @@ class SessionController extends Controller
             return back()->with('error', 'Invalid username or email address.');
         }
 
+        auth()->login($checkEmail);
         return redirect()->route('loginPass');
 
     }
