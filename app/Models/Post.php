@@ -9,7 +9,9 @@ class Post extends Model
 {
     use HasFactory;
 
-    public function users(){
-        return $this->belongsTo(User::class, 'user_id');
+    protected $guarded = [];
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

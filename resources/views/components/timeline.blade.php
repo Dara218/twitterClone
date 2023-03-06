@@ -6,7 +6,7 @@
           </div>
 
           <div class="col-md-6 px-3 border border-top-0 border-bottom-0" style="margin-left: 260px;">
-            <form action="#" method="post" style="width: 100%">
+            <form action="{{ route('post.store') }}" method="post" style="width: 100%">
 
                 @csrf
 
@@ -15,7 +15,7 @@
 
                     <div class="mb-3 w-100">
                         <label for="" class="form-label"></label>
-                        <textarea class="form-control bg-transparent border-0 fs-5 text-white" placeholder="What's happening?" name="" id="" rows="2"></textarea>
+                        <textarea class="form-control bg-transparent border-0 fs-5 text-white" placeholder="What's happening?" name="post_value" id="" rows="2"></textarea>
 
                         <div class="d-flex justify-content-between mt-3">
                             <ul class="d-flex list-unstyled gap-2">
@@ -50,7 +50,7 @@
             </form>
 
             {{-- Tweets --}}
-            <x-tweets/>
+            <x-tweets :tweets="$tweets" :users="$users"/>
 
           </div>
 
@@ -79,11 +79,16 @@
                     <li>Hello Sydney</li>
                     <li>Hello Sydney</li>
                     <li>Hello Sydney</li>
-                    
+
                 </ul>
             </div>
 
           </div>
+
+          <form action="{{ route('user.destroy') }}" method="post">
+            @csrf
+            <button type="submit" name="logout-btn">Logout</button>
+          </form>
 
       </div>
 </x-layout>

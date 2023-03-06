@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TimelineController;
@@ -9,16 +10,22 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/create', [RegisterController::class, 'create'])->name('user.create');
-Route::post('/store', [RegisterController::class, 'store'])->name('user.store');
+Route::get('/create', [RegisterController::class, 'create'])->middleware('guest')->name('user.create');
+Route::post('/store', [RegisterController::class, 'store'])->middleware('guest')->name('user.store');
 
-Route::get('/login', [SessionController::class, 'gotoLogin'])->name('gotoLogin');
-Route::post('/login-check', [SessionController::class, 'checkUserEmail'])->name('checkUserEmail');
+Route::get('/login', [SessionController::class, 'gotoLogin'])->middleware('guest')->name('gotoLogin');
+Route::post('/login-check', [SessionController::class, 'checkUserEmail'])->middleware('guest')->name('checkUserEmail');
 
-Route::get('/components.login-pass', [SessionController::class, 'loginPass'])->name('loginPass');
+Route::get('/components.login-pass', [SessionController::class, 'loginPass'])->middleware('guest')->name('loginPass');
 
-Route::post('/login-user', [SessionController::class, 'loginUser'])->name('loginUser');
+Route::post('/login-user', [SessionController::class, 'loginUser'])->middleware('guest')->name('loginUser');
 
-Route::get('/home', [TimelineController::class, 'home'])->name('home');
+Route::get('/home', [TimelineController::class, 'home'])->middleware('auth')->name('home');
 
-// Route::
+Route::post('/store-tweet', [PostController::class, 'store'])->middleware('auth')->name('post.store');
+
+Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth')->name('user.destroy');
+
+// Route::get('/authors/{author:username}', function (User $author) {
+//     return view('posts', ['posts' => $author -> posts, 'categories' => Category::all()]);
+// });
