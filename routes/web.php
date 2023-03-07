@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
@@ -18,7 +19,7 @@ Route::post('/login-check', [SessionController::class, 'checkUserEmail'])->middl
 
 Route::get('/components.login-pass', [SessionController::class, 'loginPass'])->middleware('guest')->name('loginPass');
 
-Route::post('/login-user', [SessionController::class, 'loginUser'])->middleware('guest')->name('loginUser');
+Route::post('/login-user', [SessionController::class, 'loginUser'])->middleware('auth')->name('loginUser');
 
 Route::get('/home', [TimelineController::class, 'home'])->middleware('auth')->name('home');
 
@@ -26,6 +27,4 @@ Route::post('/store-tweet', [PostController::class, 'store'])->middleware('auth'
 
 Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth')->name('user.destroy');
 
-// Route::get('/authors/{author:username}', function (User $author) {
-//     return view('posts', ['posts' => $author -> posts, 'categories' => Category::all()]);
-// });
+Route::post('/comment', [CommentController::class, 'store'])->middleware('auth')->name('comment.store');

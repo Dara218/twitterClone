@@ -28,6 +28,10 @@
             <div>
                 <input type="text" name="username" placeholder="Email or username" class="px-2 py-3 rounded bg-transparent border border-gray w-100 text-white">
 
+                @error('username')
+                    <p class="text-danger fw-bold mt-2">{{ $message }}</p>
+                @enderror
+
                 <button type="submit" class="btn-login btn bg-white text-black rounded-pill border-5 px-2 w-100 my-3">Submit</button>
 
                 <div class="col text-start">Dont have an account? <a href="/create" class="sign-up-btn text-decoration-none">Sign up</a></div>

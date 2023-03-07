@@ -20,6 +20,10 @@ return new class extends Migration
             $table->string('day');
             $table->string('year');
             $table->string('month');
+            $table->integer('likes')->nullable();
+            $table->integer('tweets')->nullable();
+            $table->integer('followers')->nullable();
+            $table->integer('following')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

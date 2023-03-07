@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function store(Post $post, Request $request){
+    public function store(Request $request){
 
         // dd($post->users());
 
