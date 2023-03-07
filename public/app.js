@@ -1,24 +1,31 @@
-$(document).ready(function(){
-    const btnComment = $('.comment-btn')
+// $(document).ready(function(){
+//     $('.comment-btn').on('click', function(){
+//         const usernameValue = $(this).data('username')
+//         const tweetValue = $(this).data('post_value')
+//         const nameValue = $(this).data('name')
 
-    btnComment.on('click', function(){
-        const usernameValue = $(this).data('username')
-        const tweetValue = $(this).data('post_value')
-        const nameValue = $(this).data('name')
+//         const modalUsername = $('.username')
+//         const modalTweetValue = $('.tweet-value')
+//         const modalNameValue = $('.name')
 
-        const modalUsername = $('.username')
-        const modalTweetValue = $('.tweet-value')
-        const modalNameValue = $('.name')
+//         modalUsername.text(usernameValue)
+//         modalTweetValue.text(tweetValue)
+//         modalNameValue.text(nameValue)
 
-        modalUsername.text(usernameValue)
-        modalTweetValue.text(tweetValue)
-        modalNameValue.text(nameValue)
+//         const modalElement = $('.tweet-modal')
+//         const overlay = $('.overlay')
 
-        const modalElement = $('.tweet-modal')
-        modalElement.slideDown()
+//         modalElement.slideDown()
+//         overlay.show()
 
-        const overlay = $('.overlay')
-        overlay.show()
+//         // $('.fa-xmark').on('click', function(){
+//         //     modalElement.slideUp()
+//         //     overlay.hide()
+//         // })
+//     })
 
-    })
-})
+//     // $('.overlay').on('click', function() {
+//     //     $('.post-modal').slideUp();
+//     //     $(this).hide();
+//     // });
+// })
