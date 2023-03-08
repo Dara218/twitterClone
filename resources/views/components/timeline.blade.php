@@ -50,7 +50,7 @@
             </form>
 
             {{-- Tweets --}}
-            <x-tweets :tweets="$tweets" :users="$users"/>
+            <x-tweets :tweets="$tweets" :users="$users" :comments="$comments"/>
 
           </div>
 

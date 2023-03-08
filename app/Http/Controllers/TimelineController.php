@@ -12,6 +12,7 @@ class TimelineController extends Controller
     public function home(){
 
         return view('components.timeline', ['tweets' => Post::latest()->with('user', 'comment')->get(),
-                                            'users' => User::with('post')->get()]);
+                                            'users' => User::with('post')->get(),
+                                            'comments' => Comment::with('post', 'user')->get()]);
     }
 }

@@ -20,6 +20,24 @@
             <div>
                 <x-tweet-option :tweet="$tweet"/>
             </div>
+
+            @foreach ($comments as $comment)
+                {{-- {{ dd($comment) }} --}}
+
+                <div class="d-flex gap-2">
+                    <span>{{ $comment->user->name }}</span>
+                    <p>{{ $comment->user->username  }}</p>
+                    <p>{{ $comment->created_at }}</p>
+                </div>
+
+                <p>{{ $comment->comment_value }}</p>
+
+                <div>
+                    <x-tweet-option :tweet="$tweet"/>
+                </div>
+
+            @endforeach
+
         </div>
     </div>
 @endforeach
