@@ -17,7 +17,7 @@ Route::post('/store', [RegisterController::class, 'store'])->middleware('guest')
 Route::get('/login', [SessionController::class, 'gotoLogin'])->middleware('guest')->name('gotoLogin');
 Route::post('/login-check', [SessionController::class, 'checkUserEmail'])->middleware('guest')->name('checkUserEmail');
 
-Route::get('/components.login-pass', [SessionController::class, 'loginPass'])->middleware('guest')->name('loginPass');
+Route::get('/components.login-pass', [SessionController::class, 'loginPass'])->name('loginPass');
 
 Route::post('/login-user', [SessionController::class, 'loginUser'])->middleware('auth')->name('loginUser');
 

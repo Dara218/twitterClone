@@ -13,20 +13,23 @@ class CommentController extends Controller
         $posts = Post::with('comment')->get();
 
         foreach ($posts as $post){
-            dd($post);
+            $postId = $post->id;
         }
 
         $request->validate([
             'post_value' => 'required|max:250'
         ]);
 
-        Comment::create([
+        $comment = Comment::create([
             'user_id' => $request->user()->id,
-            // 'post_id' => 
+            'post_id' => $postId,
             'comment_value' => $request->post_value
         ]);
 
-        return back();
+        $addCommentToTweet = Post::find($postId);
+        $addCommentToTweet->increment('comments', 1);
+
+        return back()->with(['comment' => $comment]);
 
     }
 }

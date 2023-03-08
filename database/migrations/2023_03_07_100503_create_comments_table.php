@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('post_id');
             $table->string('comment_value');
             $table->integer('likes')->nullable();
-            $table->integer('shares')->nullable();
+            $table->integer('comments')->nullable();
             $table->integer('retweets')->nullable();
             $table->timestamps();
             $table->timestamp('published_at')->nullable();

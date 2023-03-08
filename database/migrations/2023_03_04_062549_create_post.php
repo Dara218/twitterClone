@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('post_value');
-            $table->integer('likes')->nullable();
-            $table->integer('retweets')->nullable();
+            $table->integer('likes')->default(0);
+            $table->integer('comments')->default(0);
+            $table->integer('retweets')->default(0);
             $table->timestamps();
             $table->timestamp('published_at')->nullable();
         });
