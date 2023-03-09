@@ -12,8 +12,8 @@
         <div class="d-flex flex-column">
             <div class="d-flex gap-2">
                 <span>{{ $tweet->user->name }}</span>
-                <p>{{ $tweet->user->username }}</p>
-                <p>{{ $tweet->created_at }}</p>
+                <p>{{ '@'.$tweet->user->username }}</p>
+                <p>{{ $tweet->created_at->diffForHumans() }}</p>
             </div>
             <p>{{ $tweet->post_value }}</p>
 
@@ -26,8 +26,8 @@
 
                 <div class="d-flex gap-2">
                     <span>{{ $comment->user->name }}</span>
-                    <p>{{ $comment->user->username  }}</p>
-                    <p>{{ $comment->created_at }}</p>
+                    <p>{{ '@'.$comment->user->username  }}</p>
+                    <p>{{ $comment->created_at->diffForHumans() }}</p>
                 </div>
 
                 <p>{{ $comment->comment_value }}</p>

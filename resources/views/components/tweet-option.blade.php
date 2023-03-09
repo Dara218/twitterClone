@@ -94,21 +94,37 @@
                     <span class="material-symbols-outlined">
                         cycle
                     </span>
-                    <form method="POST" action="#">
-                        <button type="submit" class="bg-transparent text-white">
-                            Retweet
-                        </button>
-                    </form>
+
+                    {{-- {{ dd($tweet) }} --}}
+
+                    {{-- @foreach ($tweet as $getTweet) --}}
+                    {{-- {{ dd($tweet) }} --}}
+                        <form method="POST" action="{{ route('retweet.store') }}">
+                            @csrf
+                            <button type="submit" class="bg-transparent text-white">
+                                Retweet
+                            </button>
+                        </form>
+                    {{-- @endforeach --}}
+
                 </div>
                 <div class="d-flex gap-2" style="cursor:pointer">
                     <span class="material-symbols-outlined">
                         edit_square
                     </span>
-                    <form method="POST" action="#">
-                        <button type="submit" class="bg-transparent text-white">
-                            Quote Tweet
-                        </button>
-                    </form>
+
+                    @foreach ($tweet->comment as $getTweet)
+                        {{-- {{ dd($getTweet->post_id) }} --}}
+                        <form method="POST" action="">
+                            @csrf
+                            <button type="submit" class="bg-transparent text-white">
+                                Quote Tweet
+                            </button>
+                        </form>
+                    @endforeach
+
+
+
                 </div>
             </div>
         </div>
