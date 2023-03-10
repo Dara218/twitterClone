@@ -22,4 +22,12 @@ class PostController extends Controller
 
         return back();
     }
+
+    public function destroy(Post $post){
+
+        $post->delete();
+        $post->decrement('comments', 1);
+
+        return redirect('home');
+    }
 }

@@ -10,7 +10,7 @@ class CommentController extends Controller
 {
     public function store(Request $request, Post $post){
 
-        $posts = Post::with('comment')->get();
+        $posts = Post::with('comment')->where('id', '=', $post->id)->get();
 
         foreach ($posts as $post){
             $postId = $post->id;
@@ -32,4 +32,15 @@ class CommentController extends Controller
         return back()->with(['comment' => $comment]);
 
     }
+
+    public function destroy(Post $post){
+
+        // TODO:FIX THE COMMENT DELETE
+
+        $post->delete();
+        $post->decrement('comments', 1);
+
+        return redirect('home');
+    }
+
 }

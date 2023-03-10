@@ -11,8 +11,24 @@ class TimelineController extends Controller
 {
     public function home(){
 
-        return view('components.timeline', ['tweets' => Post::latest()->with('user', 'comment')->get(),
+        $comments = (Post::with('comment')->get());
+
+        foreach($comments as $comment){
+            $getComment = $comment['comments'];
+        }
+
+        if($comments->isEmpty()){
+            return view('components.timeline', ['tweets' => Post::latest()->with('user', 'comment')->get(),
+            'users' => User::with('post')->get(),
+            'comments' => Comment::with('post', 'user')->get()]);
+        }
+
+       else{
+         return view('components.timeline', ['tweets' => Post::latest()->with('user', 'comment')->get(),
+                                            'commentid' => Comment::with('user')->where('post_id', '=', $getComment)->get(),
                                             'users' => User::with('post')->get(),
                                             'comments' => Comment::with('post', 'user')->get()]);
+       }
+
     }
 }
