@@ -13,24 +13,17 @@
 
             <p>{{ $tweet->post_value }}</p>
 
+            {{-- TODO: Delete popover --}}
             <span class="material-symbols-outlined position-absolute top-0 end-0" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover" style="cursor: pointer;">
                 more_horiz
-                <form action="{{ route('tweet.destroy', ['post' => $tweet->id]) }}" method="post">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="text-danger">Delete</button>
-                </form>
+                
             </span>
 
-            {{-- <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover">
-                <form action="{{ route('tweet.destroy', ['post' => $tweet->id]) }}" method="post">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="text-danger">Delete</button>
-                </form>
-            </button> --}}
-
-
+            <form action="{{ route('tweet.destroy', ['post' => $tweet->id]) }}" method="post">
+                @csrf
+                @method('delete')
+                <button type="submit" class="text-danger">Delete</button>
+            </form>
 
             {{-- Tweet Options --}}
             <div>
