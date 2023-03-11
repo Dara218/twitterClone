@@ -58,8 +58,6 @@
                 <x-tweets :tweets="$tweets" :users="$users" :comments="$comments" :commentid="$commentid"/>
             @endif
 
-
-
           </div>
 
           <div class="w-100 mt-1 mx-4">

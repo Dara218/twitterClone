@@ -9,8 +9,6 @@ class PostController extends Controller
 {
     public function store(Request $request){
 
-        // dd($post->users());
-
         $request->validate([
             'post_value' => 'required'
         ]);
@@ -26,8 +24,7 @@ class PostController extends Controller
     public function destroy(Post $post){
 
         $post->delete();
-        $post->decrement('comments', 1);
-
-        return redirect('home');
+        // $post->decrement('comments', 1);
+        return back();
     }
 }

@@ -10,37 +10,32 @@ class CommentController extends Controller
 {
     public function store(Request $request, Post $post){
 
-        $posts = Post::with('comment')->where('id', '=', $post->id)->get();
-
-        foreach ($posts as $post){
-            $postId = $post->id;
-        }
+        $posts = Post::findOrFail($post->id);
 
         $request->validate([
             'post_value' => 'required|max:250'
         ]);
 
-        $comment = Comment::create([
+        $post = Comment::create([
             'user_id' => $request->user()->id,
-            'post_id' => $postId,
+            'post_id' => $post->id,
             'comment_value' => $request->post_value
         ]);
 
-        $addCommentToTweet = Post::find($postId);
-        $addCommentToTweet->increment('comments', 1);
+        $addPostToTweet = Post::find($posts->id);
+        $addPostToTweet->increment('comments');
 
-        return back()->with(['comment' => $comment]);
-
+        return back()->with(['post' => $post]);
     }
 
-    public function destroy(Post $post){
+    public function destroy(Comment $comment){
 
-        // TODO:FIX THE COMMENT DELETE
+        $comment->delete();
 
-        $post->delete();
-        $post->decrement('comments', 1);
+        $postId = $comment->post_id;
+        Post::where('id', $postId)->decrement('comments');
 
-        return redirect('home');
+        return back();
     }
 
 }

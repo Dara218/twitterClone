@@ -1,6 +1,6 @@
 @foreach ($tweets as $tweet)
 
-    <div class="d-flex gap-2 border border-start-0 border-end-0 py-2">
+    <div class="d-flex gap-2 border border-start-0 border-end-0 py-2 position-relative">
         <img src="https://picsum.photos/300?random={{ rand() }}" alt="user icon" class="rounded-circle mt-3 mx-2" style="width: 8%; height: 100%;"/>
 
         <div class="d-flex flex-column">
@@ -13,10 +13,24 @@
 
             <p>{{ $tweet->post_value }}</p>
 
-            <form action="{{ route('tweet.destroy', $tweet->id) }}" method="post">
-                @csrf
-                <button type="submit" class="text-danger">Delete</button>
-            </form>
+            <span class="material-symbols-outlined position-absolute top-0 end-0" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover" style="cursor: pointer;">
+                more_horiz
+                <form action="{{ route('tweet.destroy', ['post' => $tweet->id]) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="text-danger">Delete</button>
+                </form>
+            </span>
+
+            {{-- <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover">
+                <form action="{{ route('tweet.destroy', ['post' => $tweet->id]) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="text-danger">Delete</button>
+                </form>
+            </button> --}}
+
+
 
             {{-- Tweet Options --}}
             <div>
@@ -35,8 +49,12 @@
 
                     <p>{{ $comment->comment_value }}</p>
 
-                    <form action="{{ route('comment.destroy', $comment->id) }}" method="post">
+
+
+                    <form action="{{ route('comment.destroy', ['comment' => $comment->id]) }}" method="post">
                         @csrf
+                        @method('delete')
+
                         <button type="submit" class="text-danger">Delete</button>
                     </form>
 

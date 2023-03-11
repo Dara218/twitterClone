@@ -19,4 +19,8 @@ class Comment extends Model
     public function retweet(){
         return $this->hasMany(Retweet::class);
     }
+
+    public function comment(){
+        return $this->hasMany(Reply::class);
+    }
 }
