@@ -50,12 +50,11 @@
             </form>
 
             {{-- Tweets --}}
-
             @if ($tweets->isEmpty())
                 <x-tweets :tweets="$tweets" :users="$users" :comments="$comments"/>
 
                 @else
-                <x-tweets :tweets="$tweets" :users="$users" :comments="$comments" :commentid="$commentid"/>
+                <x-tweets :tweets="$tweets" :users="$users" :comments="$comments" :commentid="$commentid" :retweets="$retweets"/>
             @endif
 
           </div>

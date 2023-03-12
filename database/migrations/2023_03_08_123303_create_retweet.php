@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('retweet', function (Blueprint $table) {
+        Schema::create('retweets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            // $table->foreignId('original_user_id')->constrained()->onDelete('cascade');
+            $table->string('new_user_id');
             $table->foreignId('post_id')->constrained()->cascadeOnDelete();
             $table->string('comment_value');
             $table->integer('likes')->default(0);

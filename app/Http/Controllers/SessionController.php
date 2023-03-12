@@ -47,7 +47,6 @@ class SessionController extends Controller
 
         session()->regenerate();
         return redirect()->route('home');
-
     }
 
     public function destroy(){

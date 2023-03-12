@@ -90,27 +90,28 @@
 
         <div x-show="openRetweet">
             <div class="comment-modal d-flex flex-column gap-2 rounded bg-black p-2 position-absolute">
+
                 <div class="d-flex gap-2" style="cursor:pointer">
                     <span class="material-symbols-outlined">
                         cycle
                     </span>
 
                     {{-- @foreach ($tweet as $getTweet) --}}
-                        <form method="POST" action="{{ route('retweet.store') }}">
+                        <form method="POST" action="{{ route('retweet.store', $tweet) }}">
                             @csrf
                             <button type="submit" class="bg-transparent text-white">
                                 Retweet
                             </button>
                         </form>
                     {{-- @endforeach --}}
-
                 </div>
+
                 <div class="d-flex gap-2" style="cursor:pointer">
                     <span class="material-symbols-outlined">
                         edit_square
                     </span>
 
-                    @foreach ($tweet->comment as $getTweet)
+                    {{-- @foreach ($tweet->comment as $getTweet) --}}
 
                         <form method="POST" action="">
                             @csrf
@@ -118,10 +119,7 @@
                                 Quote Tweet
                             </button>
                         </form>
-                    @endforeach
-
-
-
+                    {{-- @endforeach --}}
                 </div>
             </div>
         </div>
