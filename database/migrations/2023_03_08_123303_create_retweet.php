@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('retweets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('new_user_id');
+            $table->string('new_owner');
             $table->foreignId('post_id')->constrained()->cascadeOnDelete();
             $table->string('comment_value');
             $table->integer('likes')->default(0);

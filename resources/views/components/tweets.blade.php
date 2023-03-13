@@ -72,12 +72,13 @@
 
         <div class="d-flex flex-column">
 
-            {{-- @dd($retweets->user) --}}
+            {{-- TODO: FIXED ONLY ONEN USER NA D DISPLAY SA RETWEET. --}}
+            {{-- @dd($retweets) --}}
 
             <p class="d-flex gap-2 align-items-center pt-1 text-secondary">
                 <span class="material-symbols-outlined ">
                     cycle
-                </span > {{ $retweet->user->name }} has retweeted.
+                </span > {{ $retweet->new_owner }} has retweeted.
             </p>
 
             <div class="d-flex gap-2">

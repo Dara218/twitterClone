@@ -13,7 +13,7 @@ class TimelineController extends Controller
     public function home(){
 
         $comments = Post::with('comment')->get();
-        // $retweets = Retweet::findOrFail();
+        $retweets = Retweet::all();
 
         foreach($comments as $comment){
             $getComment = $comment['comments'];
@@ -22,7 +22,8 @@ class TimelineController extends Controller
         if($comments->isEmpty()){
             return view('components.timeline', ['tweets' => Post::latest()->with('user', 'comment')->get(),
                                                 'users' => User::with('post')->get(),
-                                                'comments' => Comment::with('post', 'user')->get()]);
+                                                'comments' => Comment::with('post', 'user')->get(),
+                                                'retweets' => Retweet::with('retweets', 'user')->get()]);
         }
 
        else{

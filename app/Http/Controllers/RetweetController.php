@@ -14,7 +14,7 @@ class RetweetController extends Controller
 
         Retweet::create([
             'user_id' => $post->user_id,
-            'new_user_id' => Auth::user()->id,
+            'new_owner' => Auth::user()->username,
             'post_id' => $post->id,
             'comment_value' => $post->post_value,
             'likes' => $post->likes,
