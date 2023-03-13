@@ -21,6 +21,6 @@ class Comment extends Model
     }
 
     public function comment(){
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class, 'post_id');
     }
 }

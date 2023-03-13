@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Retweet;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -19,6 +20,7 @@ class CommentController extends Controller
         $post = Comment::create([
             'user_id' => $request->user()->id,
             'post_id' => $post->id,
+
             'comment_value' => $request->post_value
         ]);
 
@@ -28,14 +30,34 @@ class CommentController extends Controller
         return back()->with(['post' => $post]);
     }
 
-    public function destroy(Comment $comment){
+    public function storeCommentRetweet(Request $request, Retweet $retweet){
 
-        $comment->delete();
+        // dd($retweet);
 
-        $postId = $comment->post_id;
-        Post::where('id', $postId)->decrement('comments');
+        $posts = Retweet::findOrFail($retweet->id);
+
+        $request->validate([
+            'post_value' => 'required|max:250'
+        ]);
+
+        $retweet = Comment::create([
+            'user_id' => $request->user()->id,
+            'post_id' => $retweet->post_id,
+            'retweet_id' => $retweet->id,
+            'comment_value' => $request->post_value
+        ]);
+
+        $addPostToTweet = Retweet::find($posts->id);
+        $addPostToTweet->increment('comments');
 
         return back();
     }
 
+    public function destroy(Comment $comment){
+
+        $comment->delete();
+        Post::where('id', $comment->post_id)->decrement('comments');
+
+        return back();
+    }
 }

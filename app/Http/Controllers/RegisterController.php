@@ -11,7 +11,6 @@ class RegisterController extends Controller
     public function create(){
         return view('components.create');
     }
-
     public function store(RegisterRequest $request){
         $userCredentials = $request->validated();
         $userCredentials['password'] = bcrypt($userCredentials['password']);

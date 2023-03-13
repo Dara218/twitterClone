@@ -30,6 +30,8 @@ Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth'
 
 Route::get('/comment/{post}', [CommentController::class, 'store'])->middleware('auth')->name('comment.store');
 
+Route::get('/comment-retweet/{retweet}', [CommentController::class, 'storeCommentRetweet'])->middleware('auth')->name('comment.retweet.store');
+
 Route::post('/retweet/{post}', [RetweetController::class, 'store'])->middleware('auth')->name('retweet.store');
 
 Route::delete('/deleteTweet/{post}', [PostController::class, 'destroy'])->middleware('auth')->name('tweet.destroy');

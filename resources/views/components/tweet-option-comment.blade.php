@@ -98,7 +98,7 @@
                     </span>
 
                     {{-- @foreach ($tweet as $getTweet) --}}
-                        <form method="POST" action="{{ route('retweet.store') }}">
+                        <form method="POST" action="{{ route('retweet.store', ['post' => $comment->id]) }}">
                             @csrf
                             <button type="submit" class="bg-transparent text-white">
                                 Retweet
@@ -112,6 +112,12 @@
                     <span class="material-symbols-outlined">
                         edit_square
                     </span>
+                    <form method="POST" action="{{ route('retweet.store', ['post' => $comment->id]) }}">
+                        @csrf
+                        <button type="submit" class="bg-transparent text-white">
+                            Quote Tweet
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

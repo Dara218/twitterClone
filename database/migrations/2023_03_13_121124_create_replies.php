@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('replies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('post_id')->constrained()->cascadeOnDelete();
-            $table->string('comment_value');
+            $table->foreignId('comment_id')->constrained()->cascadeOnDelete();
+            $table->string('reply_value');
             $table->integer('likes')->default(0);
-            $table->integer('comments')->default(0);
+            $table->integer('replies')->default(0);
             $table->integer('retweets')->default(0);
             $table->timestamps();
             $table->timestamp('published_at')->nullable();
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('replies');
     }
 };

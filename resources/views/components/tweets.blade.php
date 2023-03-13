@@ -28,10 +28,16 @@
             {{-- Tweet Options --}}
             <div>
                 @foreach ($retweets as $retweet) @endforeach
-                <x-tweet-option :tweet="$tweet" :retweet="$retweet"/>
+                    @if ($retweets->isEmpty())
+                    <x-tweet-option :tweet="$tweet"/>
+
+                    @else
+                    <x-tweet-option :tweet="$tweet" :retweet="$retweet"/>
+                @endif
             </div>
 
             {{-- Comments on tweets --}}
+
             @if ($tweet->comment->count() > 0)
                 @foreach ($tweet->comment as $comment)
 
@@ -53,7 +59,7 @@
 
                     {{-- Comment tweet option --}}
                     <div>
-                        <x-tweet-option-comment :comment="$comment"/>
+                        <x-retweet-option-comment :comment="$comment"/>
                     </div>
 
                 @endforeach
@@ -99,36 +105,37 @@
 
             {{-- Tweet Options --}}
             <div>
-                <x-tweet-option :tweet="$tweet" :retweet="$retweet"/>
+                <x-retweet-option :tweet="$tweet" :retweet="$retweet"/>
             </div>
 
             {{-- Comments on tweets --}}
-            @if ($tweet->comment->count() > 0)
-                @foreach ($tweet->comment as $comment)
+            @if (is_Int($retweet->comments))
 
-                    <div class="d-flex gap-2">
-                        <span>{{ $comment->user->name }}</span>
-                        <p>{{ '@'.$comment->user->username  }}</p>
-                        <p>{{ $comment->user->created_at->diffForHumans() }}</p>
-                    </div>
+                @elseif ($retweet->comments->count() > 0)
+                    @foreach ($retweet->comments as $comment)
 
-                    <p>{{ $comment->comment_value }}</p>
+                        <div class="d-flex gap-2">
+                            <span>{{ $comment->user->name }}</span>
+                            <p>{{ '@'.$comment->user->username  }}</p>
+                            <p>{{ $comment->user->created_at->diffForHumans() }}</p>
+                        </div>
 
-                    <form action="{{ route('comment.destroy', ['comment' => $comment->id]) }}" method="post">
-                        @csrf
-                        @method('delete')
+                        <p>{{ $comment->comment_value }}</p>
 
-                        <button type="submit" class="text-danger">Delete</button>
-                    </form>
+                        <form action="{{ route('comment.destroy', ['comment' => $comment->id]) }}" method="post">
+                            @csrf
+                            @method('delete')
+
+                            <button type="submit" class="text-danger">Delete</button>
+                        </form>
 
 
-                    {{-- Comment tweet option --}}
-                    <div>
-                        <x-tweet-option-comment :comment="$comment"/>
-                    </div>
+                        {{-- Comment tweet option --}}
+                        <div>
+                            <x-retweet-option-comment :comment="$comment"/>
+                        </div>
 
-                @endforeach
-
+                    @endforeach
             @endif
 
         </div>

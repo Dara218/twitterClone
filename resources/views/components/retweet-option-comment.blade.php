@@ -1,21 +1,23 @@
 <ul class="d-flex list-unstyled" style="gap:10%;">
 
+    {{-- {{ dd($comment) }} --}}
+
     {{-- Comment Modal --}}
     <li x-data="{ open: false, name:'', username:'', postValue:'', created_at:'' }" x-on:click.away="open = false" class="d-flex align-items-center gap-2" style="cursor:pointer">
 
         <span class="comment-btn material-symbols-outlined"
-        x-on:click="open=true; name='{{ $tweet->user->name }}';
-                            username='{{ $tweet->user->username }}';
-                            postValue='{{ addslashes($tweet->post_value) }}';
-                            created_at='{{ $tweet->created_at }}';">
+        x-on:click="open=true; name='{{ $comment->user->name }}';
+                            username='{{ $comment->user->username }}';
+                            postValue='{{ addslashes($comment->post_value) }}';
+                            created_at='{{ $comment->created_at }}';">
                             chat_bubble
-        </span> {{ $tweet->comments }}
+        </span> {{ $comment->comments }}
 
         <form x-show="open"
         x-cloak
         class="tweet-modal  gap-2 py-2 position-fixed bg-dark px-3 py-4 rounded" style="display: none !important; left:50%; top: 50%; transform:translate(-50%, -50%); z-index: 9999;"
-        method="GET"
-        action="{{ route('comment.store', ['post' => $tweet->id]) }}">
+        method="POST"
+        action="{{ route('comment.retweet.store', ['retweet' => $comment->id]) }}">
 
             @csrf
 
@@ -82,44 +84,40 @@
     </li>
 
     {{-- Retweet Modal --}}
-    <li x-data="{openRetweet: false}" x-on:click.away="openRetweet = false" class="d-flex align-items-center gap-2">
+    <li x-data="{openRetweet: false}" x-on:click.away="openRetweet = false">
 
-        <span>
-            <i class="fas fa-retweet" x-on:click="openRetweet= !openRetweet" style="cursor:pointer"></i>
-        </span>{{ $tweet->retweets }}
+        <span class="material-symbols-outlined position-relative" x-on:click="openRetweet= !openRetweet" style="cursor:pointer">
+            cycle
+        </span>
 
         <div x-show="openRetweet">
             <div class="comment-modal d-flex flex-column gap-2 rounded bg-black p-2 position-absolute">
-
                 <div class="d-flex gap-2" style="cursor:pointer">
                     <span class="material-symbols-outlined">
                         cycle
                     </span>
 
                     {{-- @foreach ($tweet as $getTweet) --}}
-                        <form method="POST" action="{{ route('retweet.store', $tweet) }}">
+                        <form method="POST" action="{{ route('retweet.store', ['post' => $comment->id]) }}">
                             @csrf
                             <button type="submit" class="bg-transparent text-white">
                                 Retweet
                             </button>
                         </form>
                     {{-- @endforeach --}}
+
                 </div>
 
                 <div class="d-flex gap-2" style="cursor:pointer">
                     <span class="material-symbols-outlined">
                         edit_square
                     </span>
-
-                    {{-- @foreach ($tweet->comment as $getTweet) --}}
-
-                        <form method="POST" action="">
-                            @csrf
-                            <button type="submit" class="bg-transparent text-white">
-                                Quote Tweet
-                            </button>
-                        </form>
-                    {{-- @endforeach --}}
+                    <form method="POST" action="{{ route('retweet.store', ['post' => $comment->id]) }}">
+                        @csrf
+                        <button type="submit" class="bg-transparent text-white">
+                            Quote Tweet
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -22,7 +22,7 @@ class RetweetController extends Controller
             'retweets' => $post->retweets,
         ]);
 
-        // dd($retweet);
+        Post::find($post->id)->increment('retweets');
 
         return back();
     }

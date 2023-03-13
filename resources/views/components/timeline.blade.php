@@ -51,10 +51,17 @@
 
             {{-- Tweets --}}
             @if ($tweets->isEmpty() && $retweets->isEmpty())
-                <x-tweets :tweets="$tweets" :users="$users" :comments="$comments" :retweets="$retweets"/>
+                <x-tweets :tweets="$tweets"
+                            :users="$users"
+                            :comments="$comments"
+                            :retweets="$retweets"/>
 
                 @else
-                <x-tweets :tweets="$tweets" :users="$users" :comments="$comments" :commentid="$commentid" :retweets="$retweets"/>
+                <x-tweets :tweets="$tweets"
+                            :users="$users"
+                            :comments="$comments"
+                            :commentid="$commentid"
+                            :retweets="$retweets"/>
             @endif
 
           </div>
@@ -84,10 +91,8 @@
                     <li>Hello Sydney</li>
                     <li>Hello Sydney</li>
                     <li>Hello Sydney</li>
-
                 </ul>
             </div>
-
           </div>
 
           <form action="{{ route('user.destroy') }}" method="post">
