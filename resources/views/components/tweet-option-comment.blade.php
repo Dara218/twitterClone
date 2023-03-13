@@ -107,23 +107,11 @@
                     {{-- @endforeach --}}
 
                 </div>
+
                 <div class="d-flex gap-2" style="cursor:pointer">
                     <span class="material-symbols-outlined">
                         edit_square
                     </span>
-
-                    {{-- @foreach ($comment->comment as $getTweet)
-
-                        <form method="POST" action="">
-                            @csrf
-                            <button type="submit" class="bg-transparent text-white">
-                                Quote Tweet
-                            </button>
-                        </form>
-                    @endforeach --}}
-
-
-
                 </div>
             </div>
         </div>

@@ -20,18 +20,18 @@ class TimelineController extends Controller
         }
 
         if($comments->isEmpty()){
-            return view('components.timeline', ['tweets' => Post::latest()->with('user', 'comment')->get(),
+            return view('components.timeline', ['tweets' => Post::with('user', 'comment')->latest()->get(),
                                                 'users' => User::with('post')->get(),
                                                 'comments' => Comment::with('post', 'user')->get(),
-                                                'retweets' => Retweet::with('retweets', 'user')->get()]);
+                                                'retweets' => Retweet::with('retweets')->latest()->get()]);
         }
 
        else{
-         return view('components.timeline', ['tweets' => Post::latest()->get(),
+         return view('components.timeline', ['tweets' => Post::with('user', 'comment')->latest()->get(),
                                             'commentid' => Comment::with('user')->where('post_id', '=', $getComment)->get(),
                                             'users' => User::with('post')->get(),
                                             'comments' => Comment::with('post', 'user')->get(),
-                                            'retweets' => Retweet::with('retweets', 'user')->get()]);
+                                            'retweets' => Retweet::with('retweets')->latest()->get()]);
        }
 
     }

@@ -27,7 +27,8 @@
 
             {{-- Tweet Options --}}
             <div>
-                <x-tweet-option :tweet="$tweet"/>
+                @foreach ($retweets as $retweet) @endforeach
+                <x-tweet-option :tweet="$tweet" :retweet="$retweet"/>
             </div>
 
             {{-- Comments on tweets --}}
@@ -41,8 +42,6 @@
                     </div>
 
                     <p>{{ $comment->comment_value }}</p>
-
-
 
                     <form action="{{ route('comment.destroy', ['comment' => $comment->id]) }}" method="post">
                         @csrf
@@ -72,13 +71,10 @@
 
         <div class="d-flex flex-column">
 
-            {{-- TODO: FIXED ONLY ONEN USER NA D DISPLAY SA RETWEET. --}}
-            {{-- @dd($retweets) --}}
-
             <p class="d-flex gap-2 align-items-center pt-1 text-secondary">
                 <span class="material-symbols-outlined ">
                     cycle
-                </span > {{ $retweet->new_owner }} has retweeted.
+                </span > {{ $retweet->user->name }} has retweeted.
             </p>
 
             <div class="d-flex gap-2">
@@ -103,7 +99,7 @@
 
             {{-- Tweet Options --}}
             <div>
-                <x-tweet-option :tweet="$tweet"/>
+                <x-tweet-option :tweet="$tweet" :retweet="$retweet"/>
             </div>
 
             {{-- Comments on tweets --}}

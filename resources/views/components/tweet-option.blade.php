@@ -82,11 +82,11 @@
     </li>
 
     {{-- Retweet Modal --}}
-    <li x-data="{openRetweet: false}" x-on:click.away="openRetweet = false">
+    <li x-data="{openRetweet: false}" x-on:click.away="openRetweet = false" class="d-flex align-items-center gap-2">
 
-        <span class="material-symbols-outlined position-relative" x-on:click="openRetweet= !openRetweet" style="cursor:pointer">
-            cycle
-        </span>
+        <span>
+            <i class="fas fa-retweet" x-on:click="openRetweet= !openRetweet" style="cursor:pointer"></i>
+        </span>{{ $retweet->retweets }}
 
         <div x-show="openRetweet">
             <div class="comment-modal d-flex flex-column gap-2 rounded bg-black p-2 position-absolute">
