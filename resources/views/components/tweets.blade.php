@@ -14,9 +14,13 @@
             <p>{{ $tweet->post_value }}</p>
 
             {{-- TODO: Delete popover --}}
-            <span class="material-symbols-outlined position-absolute top-0 end-0" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover" style="cursor: pointer;">
-                more_horiz
-
+            <span class="material-symbols-outlined position-absolute top-0 end-0"
+                        data-bs-container="body"
+                        data-bs-toggle="popover"
+                        data-bs-placement="right"
+                        data-bs-content="Right popover"
+                        style="cursor: pointer;">
+                            more_horiz
             </span>
 
             <form action="{{ route('tweet.destroy', ['post' => $tweet->id]) }}" method="post">
@@ -38,6 +42,7 @@
 
             {{-- Comments on tweets --}}
             @if ($tweet->comment->count() > 0)
+
                 @foreach ($tweet->comment as $comment)
 
                     <div class="d-flex gap-2">
@@ -55,16 +60,38 @@
                         <button type="submit" class="text-danger">Delete</button>
                     </form>
 
-
                     {{-- Comment tweet option --}}
                     <div>
-                        <x-retweet-option-comment :comment="$comment"/>
+                        <x-tweet-option-comment :comment="$comment"/>
                     </div>
 
                 @endforeach
 
-            @endif
+                {{-- Replies on comments --}}
+                @if ($comment->count() > 0)
+                    @foreach ($replies as $reply)
+                        <div class="d-flex gap-2">
+                            <span>{{ $reply->user->name }}</span>
+                            <p>{{ '@'.$reply->user->username  }}</p>
+                            <p>{{ $reply->user->created_at->diffForHumans() }}</p>
+                        </div>
 
+                        <p>{{ $reply->reply_value }}</p>
+
+                        <form action="{{ route('reply.destroy', ['reply' => $reply->id]) }}" method="post">
+                            @csrf
+                            @method('delete')
+
+                            <button type="submit" class="text-danger">Delete</button>
+                        </form>
+
+                        {{-- Comment tweet option --}}
+                        <div>
+                            <x-tweet-option-comment :comment="$comment"/>
+                        </div>
+                    @endforeach
+                @endif
+            @endif
         </div>
     </div>
 @endforeach
@@ -77,9 +104,9 @@
         <div class="d-flex flex-column">
 
             <p class="d-flex gap-2 align-items-center pt-1 text-secondary">
-                <span class="material-symbols-outlined ">
-                    cycle
-                </span > {{ $retweet->user->name }} has retweeted.
+                <span>
+                    <i class="fas fa-retweet"></i>
+                </span> {{ $retweet->user->name }} retweeted.
             </p>
 
             <div class="d-flex gap-2">
@@ -108,7 +135,6 @@
             </div>
 
             {{-- Comments on tweets --}}
-
             @if (!is_Int($retweet->comments) && $retweet->comments->count() > 0)
 
                     @foreach ($retweet->comments as $comment)

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\RetweetController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TimelineController;
@@ -35,6 +36,12 @@ Route::group(['middleware' => 'auth',], function () {
 
     Route::controller(RetweetController::class)->group(function(){
         Route::post('/retweet/{post}', 'store')->name('retweet.store');
+        Route::post('/retweet-retweet/{post}', 'storeRetweet')->name('retweet-retweet.store');
+    });
+
+    Route::controller(ReplyController::class)->group(function(){
+        Route::post('/reply/{comment}', 'store')->name('reply.store');
+        Route::delete('/deleteReply/{reply}', 'destroy')->name('reply.destroy');
     });
 });
 

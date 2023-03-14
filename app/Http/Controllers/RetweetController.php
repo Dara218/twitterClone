@@ -26,4 +26,22 @@ class RetweetController extends Controller
 
         return back();
     }
+
+    public function storeRetweet(Post $post){
+        dd($post);
+
+        Retweet::create([
+            'user_id' => $post->user_id,
+            'new_owner' => Auth::user()->username,
+            'post_id' => $post->id,
+            'comment_value' => $post->post_value,
+            'likes' => $post->likes,
+            'comments' => $post->comments,
+            'retweets' => $post->retweets,
+        ]);
+
+        Post::find($post->id)->increment('retweets');
+
+        return back();
+    }
 }

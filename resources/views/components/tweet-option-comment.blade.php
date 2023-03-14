@@ -1,7 +1,5 @@
 <ul class="d-flex list-unstyled" style="gap:10%;">
 
-    {{-- {{ dd($comment) }} --}}
-
     {{-- Comment Modal --}}
     <li x-data="{ open: false, name:'', username:'', postValue:'', created_at:'' }" x-on:click.away="open = false" class="d-flex align-items-center gap-2" style="cursor:pointer">
 
@@ -13,11 +11,13 @@
                             chat_bubble
         </span> {{ $comment->comments }}
 
+        {{-- @dd($comment) --}}
+
         <form x-show="open"
         x-cloak
         class="tweet-modal  gap-2 py-2 position-fixed bg-dark px-3 py-4 rounded" style="display: none !important; left:50%; top: 50%; transform:translate(-50%, -50%); z-index: 9999;"
-        method="GET"
-        action="{{ route('comment.store', ['post' => $comment->id]) }}">
+        method="POST"
+        action="{{ route('reply.store', ['comment' => $comment->id]) }}">
 
             @csrf
 
@@ -86,8 +86,8 @@
     {{-- Retweet Modal --}}
     <li x-data="{openRetweet: false}" x-on:click.away="openRetweet = false">
 
-        <span class="material-symbols-outlined position-relative" x-on:click="openRetweet= !openRetweet" style="cursor:pointer">
-            cycle
+        <span>
+            <i class="fas fa-retweet position-relative" x-on:click="openRetweet= !openRetweet" style="cursor:pointer"></i>
         </span>
 
         <div x-show="openRetweet">
@@ -97,14 +97,13 @@
                         cycle
                     </span>
 
-                    {{-- @foreach ($tweet as $getTweet) --}}
-                        <form method="POST" action="{{ route('retweet.store', ['post' => $comment->id]) }}">
+                    {{-- TODO:: FIXED RETWEET ON RETWEET --}}
+                        <form method="POST" action="{{ route('retweet-retweet.store', ['post' => $comment]) }}">
                             @csrf
                             <button type="submit" class="bg-transparent text-white">
                                 Retweet
                             </button>
                         </form>
-                    {{-- @endforeach --}}
 
                 </div>
 

@@ -45,8 +45,7 @@ class CommentController extends Controller
             'comment_value' => $request->post_value
         ]);
 
-        $addPostToTweet = Retweet::find($posts->id);
-        $addPostToTweet->increment('comments');
+        Retweet::find($posts->id)->increment('comments');
 
         return back();
     }

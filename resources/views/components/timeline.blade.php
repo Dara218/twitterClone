@@ -54,14 +54,16 @@
                 <x-tweets :tweets="$tweets"
                             :users="$users"
                             :comments="$comments"
-                            :retweets="$retweets"/>
+                            :retweets="$retweets"
+                            :replies="$replies"/>
 
                 @else
                 <x-tweets :tweets="$tweets"
                             :users="$users"
                             :comments="$comments"
                             :commentid="$commentid"
-                            :retweets="$retweets"/>
+                            :retweets="$retweets"
+                            :replies="$replies"/>
             @endif
 
           </div>

@@ -96,14 +96,13 @@
                         cycle
                     </span>
 
-                    {{-- @foreach ($tweet as $getTweet) --}}
-                        <form method="POST" action="{{ route('retweet.store', $tweet) }}">
-                            @csrf
-                            <button type="submit" class="bg-transparent text-white">
-                                Retweet
-                            </button>
-                        </form>
-                    {{-- @endforeach --}}
+                    <form method="POST" action="{{ route('retweet.store', $tweet) }}">
+                        @csrf
+                        <button type="submit" class="bg-transparent text-white">
+                            Retweet
+                        </button>
+                    </form>
+
                 </div>
 
                 <div class="d-flex gap-2" style="cursor:pointer">

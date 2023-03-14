@@ -20,4 +20,8 @@ class Retweet extends Model
     public function retweets(){
         return $this->hasMany(Retweet::class, 'id');
     }
+
+    public function reply(){
+        return $this->hasMany(Reply::class);
+    }
 }
