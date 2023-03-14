@@ -17,7 +17,7 @@
         x-cloak
         class="tweet-modal  gap-2 py-2 position-fixed bg-dark px-3 py-4 rounded" style="display: none !important; left:50%; top: 50%; transform:translate(-50%, -50%); z-index: 9999;"
         method="POST"
-        action="{{ route('comment.retweet.store', ['retweet' => $comment->id]) }}">
+        action="{{ route('commentretweet.store', ['retweet' => $comment->id]) }}">
 
             @csrf
 

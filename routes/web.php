@@ -12,28 +12,42 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/create', [RegisterController::class, 'create'])->middleware('guest')->name('user.create');
-Route::post('/store', [RegisterController::class, 'store'])->middleware('guest')->name('user.store');
+Route::group(['middleware' => 'auth',], function () {
+    Route::controller(TimelineController::class)->group(function(){
+        Route::get('/home', 'home')->name('home');
+    });
 
-Route::get('/login', [SessionController::class, 'gotoLogin'])->middleware('guest')->name('gotoLogin');
-Route::post('/login-check', [SessionController::class, 'checkUserEmail'])->middleware('guest')->name('checkUserEmail');
+    Route::controller(PostController::class)->group(function(){
+        Route::post('/store-tweet', 'store')->name('post.store');
+        Route::delete('/deleteTweet/{post}', 'destroy')->name('tweet.destroy');
+        Route::delete('/deleteRetweet/{retweet}', 'destroyRetweet')->name('retweet.destroy');
+    });
 
-Route::get('/components.login-pass', [SessionController::class, 'loginPass'])->name('loginPass');
+    Route::controller(SessionController::class)->group(function(){
+        Route::post('/logout', 'destroy')->name('user.destroy');
+    });
 
-Route::post('/login-user', [SessionController::class, 'loginUser'])->middleware('auth')->name('loginUser');
+    Route::controller(CommentController::class)->group(function(){
+        Route::get('/comment/{post}', 'store')->name('comment.store');
+        Route::get('/commentretweet/{retweet}', 'storeCommentRetweet')->name('commentretweet.store');
+        Route::delete('/deleteComment/{comment}', 'destroy')->name('comment.destroy');
+    });
 
-Route::get('/home', [TimelineController::class, 'home'])->middleware('auth')->name('home');
+    Route::controller(RetweetController::class)->group(function(){
+        Route::post('/retweet/{post}', 'store')->name('retweet.store');
+    });
+});
 
-Route::post('/store-tweet', [PostController::class, 'store'])->middleware('auth')->name('post.store');
+Route::group(['middleware' => 'guest'], function () {
+    Route::controller(RegisterController::class)->group(function(){
+        Route::get('/create', 'create')->name('user.create');
+        Route::post('/store', 'store')->name('user.store');
+    });
 
-Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth')->name('user.destroy');
-
-Route::get('/comment/{post}', [CommentController::class, 'store'])->middleware('auth')->name('comment.store');
-
-Route::get('/comment-retweet/{retweet}', [CommentController::class, 'storeCommentRetweet'])->middleware('auth')->name('comment.retweet.store');
-
-Route::post('/retweet/{post}', [RetweetController::class, 'store'])->middleware('auth')->name('retweet.store');
-
-Route::delete('/deleteTweet/{post}', [PostController::class, 'destroy'])->middleware('auth')->name('tweet.destroy');
-
-Route::delete('/deleteComment/{comment}', [CommentController::class, 'destroy'])->middleware('auth')->name('comment.destroy');
+    Route::controller(SessionController::class)->group(function(){
+        Route::get('/login', 'gotoLogin')->name('gotoLogin');
+        Route::post('/login-check', 'checkUserEmail')->name('checkUserEmail');
+        Route::get('/components.login-pass', 'loginPass')->name('loginPass');
+        Route::post('/login-user', 'loginUser')->name('loginUser');
+    });
+});

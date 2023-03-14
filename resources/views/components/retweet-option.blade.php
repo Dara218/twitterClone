@@ -1,7 +1,5 @@
 <ul class="d-flex list-unstyled" style="gap:10%;">
 
-    {{-- @dd($retweet) --}}
-
     {{-- Comment Modal --}}
     <li x-data="{ open: false, name:'', username:'', postValue:'', created_at:'' }" x-on:click.away="open = false" class="d-flex align-items-center gap-2" style="cursor:pointer">
 
@@ -16,10 +14,8 @@
         <form x-show="open"
         x-cloak
         class="tweet-modal  gap-2 py-2 position-fixed bg-dark px-3 py-4 rounded" style="display: none !important; left:50%; top: 50%; transform:translate(-50%, -50%); z-index: 9999;"
-        method="POST"
-        action="{{ route('comment.retweet.store', ['retweet' => $retweet->id]) }}">
-
-        {{-- todo: fixed top code  --}}
+        method="GET"
+        action="{{ route('commentretweet.store', ['retweet' => $retweet->id]) }}">
 
             @csrf
 

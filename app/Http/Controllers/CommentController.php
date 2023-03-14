@@ -32,8 +32,6 @@ class CommentController extends Controller
 
     public function storeCommentRetweet(Request $request, Retweet $retweet){
 
-        // dd($retweet);
-
         $posts = Retweet::findOrFail($retweet->id);
 
         $request->validate([

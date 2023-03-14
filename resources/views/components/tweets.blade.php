@@ -37,7 +37,6 @@
             </div>
 
             {{-- Comments on tweets --}}
-
             @if ($tweet->comment->count() > 0)
                 @foreach ($tweet->comment as $comment)
 
@@ -97,7 +96,7 @@
 
             </span>
 
-            <form action="{{ route('tweet.destroy', ['post' => $retweet->id]) }}" method="post">
+            <form action="{{ route('retweet.destroy', ['retweet' => $retweet->id]) }}" method="post">
                 @csrf
                 @method('delete')
                 <button type="submit" class="text-danger">Delete</button>
@@ -109,9 +108,9 @@
             </div>
 
             {{-- Comments on tweets --}}
-            @if (is_Int($retweet->comments))
 
-                @elseif ($retweet->comments->count() > 0)
+            @if (!is_Int($retweet->comments) && $retweet->comments->count() > 0)
+
                     @foreach ($retweet->comments as $comment)
 
                         <div class="d-flex gap-2">
